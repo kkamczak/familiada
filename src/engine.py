@@ -1,7 +1,5 @@
 import pygame
 import sys
-from game_data import TEAMS, TEAM_NAMES, INDEX, ROUND_AMOUNT
-from tools.support import puts
 
 
 class Engine:
@@ -9,17 +7,13 @@ class Engine:
         """
         Kontroluje działanie aplikacji.
         Statusy:
-            start - przed kategorią
-            rolling - losowanie kategorii
-            auction - licytacja, przed pokazaniem pytania, po ukazaniu kategorii
-            answering - pokazano pytanie, czas na odpowiedź
-            tips - pokazano podpowiedzi, czas na odpowiedź
-            check_answer - pokazano prawidłową odpowiedź
-
+            main menu - menu główne
+            game - główna rozgrywka
+            options - opcje gry
+            final - final rozgrywki
         """
         self.main = main_window
-        #self.elements = main_window.elements
-        self.status = 'start'
+        self.status = 'main menu'
         self.storage = None
         self.round = 1
 
@@ -35,6 +29,8 @@ class Engine:
         action = button.action()
         if action == 'exit':
             self.exit_game()
+        elif action == 'start':
+            self.main.create_game_window()
 
     @staticmethod
     def exit_game() -> None:

@@ -35,7 +35,7 @@ from datetime import datetime
 import pygame
 from pygame.math import Vector2
 from typing import Tuple
-from tools.settings import SCALE, BUTTON_SIZE, FONT, TILE_SIZE
+from data.settings import SCALE, BUTTON_SIZE, FONT, TILE_SIZE
 
 
 def import_csv_file(path) -> list[list]:

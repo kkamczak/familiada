@@ -1,6 +1,6 @@
 import pygame
 from tools.support import draw_text, scale_image, import_image, puts, now
-from tools.settings import WHITE, BUTTON_BASIC_COLOR, BUTTON_ACTIVE_COLOR
+from data.settings import WHITE, BUTTON_BASIC_COLOR, BUTTON_ACTIVE_COLOR
 
 
 

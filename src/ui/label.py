@@ -1,6 +1,6 @@
 import pygame
 from tools.support import draw_text, scale_image, import_image, now
-from tools.settings import WHITE, BUTTON_BASIC_COLOR, BLACK, GREEN, RED, TURQ, GOLD
+from data.settings import WHITE, BUTTON_BASIC_COLOR, BLACK, GREEN, RED, TURQ, GOLD
 
 
 class Label(pygame.sprite.Sprite):

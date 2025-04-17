@@ -49,8 +49,8 @@ BALANCE_START = 5000
 ROLL_SPEED = 40
 ROLL_STEP = 0.1
 
-# Positioner
-GRID = False
+# Positioner and Grid
+SHOW_GRID = True
 
 # Rolling
 SQUARE_AMOUNT = 10

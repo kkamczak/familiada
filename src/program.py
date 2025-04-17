@@ -1,6 +1,6 @@
 import pygame
 import sys
-from tools.settings import SCREEN_WIDTH, SCREEN_HEIGHT, FPS, LIGHT_GREY, WHITE, FPS_SHOW, FONT_FPS
+from data.settings import SCREEN_WIDTH, SCREEN_HEIGHT, FPS, LIGHT_GREY, WHITE, FPS_SHOW, FONT_FPS
 from tools.support import show_fps
 from main_window import MainWindow
 
