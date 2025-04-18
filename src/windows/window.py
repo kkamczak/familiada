@@ -7,14 +7,15 @@ class Window:
         self.active = True
         self.labels = []
         self.buttons = []
+        self.stickers = []
 
         self.grid = None
         self.positioner = Positioner((screen_width, screen_height), tile_size)
 
         self.create_window()
 
-    def toggle(self):
-        self.active = not self.active
+    def activate(self):
+        self.active = True
 
     def deactivate(self):
         self.active = False
@@ -27,3 +28,5 @@ class Window:
             button.draw(screen)
         for label in self.labels:
             label.draw(screen)
+        for sticker in self.stickers:
+            sticker.draw(screen)

@@ -361,3 +361,8 @@ def show_fps(screen, fps, font, color, position) -> None:
 def show_rounds(screen, round, font, color, position) -> None:
     draw_text(screen, f'Runda {str(int(round))}', font, color, position[0], position[1], size=15*TILE_SIZE)
 
+def add_dots(text: str, max: int) -> str:
+    length = len(text)
+    if length < max:
+        text += '.' * (max - length)
+    return text

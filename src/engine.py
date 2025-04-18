@@ -29,6 +29,8 @@ class Engine:
         action = button.action()
         if action == 'exit':
             self.exit_game()
+        elif action == 'pause':
+            self.main.switch_window('Main Menu')
         elif action == 'start':
             self.main.create_game_window()
 

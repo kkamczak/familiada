@@ -31,8 +31,7 @@ class Button(pygame.sprite.Sprite):
         self.mask = None
         self.mask_time = now()
 
-    def load_images(self) -> dict:
-        file = 'button'
+    def load_images(self, file: str = "button") -> dict:
 
         normal_image = import_image(f'content/ui/buttons/{file}.png')
         normal_image = scale_image(normal_image, self.size)
@@ -94,6 +93,15 @@ class ExitButton(Button):
         puts('Wychodze z gry')
         return self.kind
 
+class PauseButton(Button):
+    def __init__(self, position: tuple, kind: str, text: str, font: pygame.font.SysFont, size: tuple):
+        super().__init__(position, kind, text, font, size)
+        self.kind = 'pause'
+
+    def action(self) -> str:
+        puts('Pauzuje gre')
+        return self.kind
+
 
 class StartButton(Button):
     def __init__(self, position: tuple, kind: str, text: str, font: pygame.font.SysFont, size: tuple):
@@ -113,3 +121,25 @@ class OptionsButton(Button):
     def action(self) -> str:
         puts('Włączam opcje gry.')
         return self.kind
+
+
+class QuestionShowButton(Button):
+    def __init__(self, position: tuple, kind: str, text: str, font: pygame.font.SysFont, size: tuple):
+        super().__init__(position, kind, text, font, size)
+        self.kind = 'question_show'
+        self.images = self.load_images(self.kind)
+
+    def action(self) -> str:
+        puts('Pokazuje pytanie...')
+        return self.kind
+
+class AnswerShowButton(Button):
+    def __init__(self, position: tuple, kind: str, text: str, font: pygame.font.SysFont, size: tuple):
+        super().__init__(position, kind, text, font, size)
+        file = 'answer_show'
+        self.images = self.load_images(file)
+
+    def action(self) -> str:
+        puts(f'Pokazuje odpowiedz nr {self.kind[-1]}...')
+        return self.kind
+

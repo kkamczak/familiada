@@ -42,6 +42,13 @@ class MainWindow:
         self.start_time = now()
         #self.sounds.play('click_normal')
 
+    def switch_window(self, new_window: str)-> None:
+        for name, window in self.windows.items():
+            window.deactivate()
+            if name == new_window:
+                window.activate()
+
+
     def create_game_window(self):
         for name, window in self.windows.items():
             window.deactivate()
