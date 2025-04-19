@@ -1,6 +1,6 @@
 import pygame
 from tools.support import draw_text, scale_image, import_image, now, puts
-from data.settings import WHITE, BUTTON_BASIC_COLOR, BLACK, RED, SHOW_MASK
+from data.settings import WHITE, BUTTON_BASIC_COLOR, BLACK, RED, SHOW_MASK, FONT_BIG
 
 
 class Label(pygame.sprite.Sprite):
@@ -57,3 +57,9 @@ class Label(pygame.sprite.Sprite):
         if self.mask is not None:
             screen.blit(self.mask, self.rect.topleft)
         draw_text(screen, self.text, self.font, color, self.rect.centerx, self.rect.centery, size=self.size[0])
+
+
+class LabelBig(Label):
+    def __init__(self, kind: str, position: tuple, text: str, font: pygame.font.SysFont, background: bool, size: tuple):
+        super().__init__(kind, position, text, font, background, size)
+        self.font = FONT_BIG

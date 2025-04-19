@@ -15,7 +15,7 @@ class Game(Window):
         self.grid = self.positioner.transform(GAME_PLAN)
 
         for key, (label_class, text, background) in self.configuration.labels.items():
-            label = label_class(key, self.grid[key][0], text, FONT_BUTTON, background, self.grid[key][1])
+            label = label_class(key, self.grid[key][0], text, FONT_BUTTON, background--, self.grid[key][1])
             self.labels.append(label)
 
         for key, (sticker_class, visible) in self.configuration.stickers.items():
