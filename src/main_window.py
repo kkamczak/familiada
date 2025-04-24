@@ -16,7 +16,8 @@ class MainWindow:
         self.game = None
 
         self.windows = {
-            'Main Menu': self.main_menu
+            'Main Menu': self.main_menu,
+            'Game': self.game
         }
 
         self.buttons_manager = ButtonsManager(self)
@@ -51,15 +52,23 @@ class MainWindow:
                 window.activate()
 
     def create_game_window(self):
-        for name, window in self.windows.items():
-            window.deactivate()
-        self.game = Game(SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE)
-        self.windows['Game'] = self.game
-        self.game.update_question(self.round_manager.round_set[self.round_manager.index])
+        if self.game is None:
+            for name, window in self.windows.items():
+                if window is None:
+                    continue
+                else:
+                    window.deactivate()
+            self.game = Game(SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE)
+            self.windows['Game'] = self.game
+            self.game.update_question(self.round_manager.round_set[self.round_manager.index])
+        else:
+            self.switch_window('Game')
 
     def elements_update(self):
         for window in list(self.windows.values()):
-            if window.active:
+            if window is None:
+                continue
+            elif window.active:
                 for button in window.buttons:
                     if button.check_click() and self.allow_click:
                         self.buttons_manager.check_action(button)
@@ -68,7 +77,9 @@ class MainWindow:
     def draw(self, screen):
         #screen.blit(self.background, (0, 0))
         for name, window in self.windows.items():
-            if window.active is True:
+            if window is None:
+                continue
+            elif window.active is True:
                 window.draw(screen)
 
         if self.timer is not None:

@@ -1,6 +1,6 @@
 import pygame
 from tools.support import draw_text, scale_image, import_image, puts, now
-from data.settings import WHITE, BUTTON_BASIC_COLOR, BUTTON_ACTIVE_COLOR
+from data.settings import WHITE, BUTTON_BASIC_COLOR, BUTTON_ACTIVE_COLOR, RED
 from data.game_data import BUTTONS_ACTION_TEXT
 
 
@@ -104,5 +104,29 @@ class AnswerShowButton(Button):
 
     def action(self) -> str:
         puts(f'Pokazuje odpowiedz nr {self.kind[-1]}...')
+        return self.kind
+
+class WrongButton(Button):
+    def __init__(self, position: tuple, kind: str, text: str, font: pygame.font.SysFont, size: tuple):
+        super().__init__(position, kind, text, font, size)
+        self.images = self.create_blind_images()
+
+    def create_blind_images(self) -> dict:
+        normal_image = pygame.surface.Surface(self.size)
+        active_image = pygame.surface.Surface(self.size)
+        normal_image.fill(RED)
+        active_image.fill(RED)
+        normal_image.set_alpha(0)
+        active_image.set_alpha(50)
+        self.rect = normal_image.get_rect(topleft=self.position)
+
+        images = {
+            'normal': normal_image,
+            'active': active_image
+        }
+        return images
+
+    def action(self) -> str:
+        puts(f'Błedna odpowiedz...')
         return self.kind
 

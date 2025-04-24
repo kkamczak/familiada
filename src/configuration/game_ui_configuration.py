@@ -1,6 +1,6 @@
 from ui.label import Label, LabelBig
 from ui.sticker import Sticker
-from ui.button import Button, QuestionShowButton, AnswerShowButton
+from ui.button import Button, QuestionShowButton, AnswerShowButton, WrongButton
 from tools.support import add_dots
 
 
@@ -31,7 +31,7 @@ class GameUiConfiguration:
             'points 5': (Label, "0", False),
             'points 6': (Label, "0", False),
 
-            'points_sum': (Label, "SUMA 100 ", False),
+            'points_sum': (Label, "0", False),
 
             'points_team_1': (Label, '0', False),
             'points_team_2': (Label, '0', False),
@@ -39,9 +39,9 @@ class GameUiConfiguration:
         # Stickers
         # kind: (Class, is_visible)
         self.stickers = {
-            'left_small_x_1': (Sticker, True), 'right_small_x_1': (Sticker, True),
-            'left_small_x_2': (Sticker, True), 'right_small_x_2': (Sticker, True),
-            'left_small_x_3': (Sticker, True), 'right_small_x_3': (Sticker, True)
+            'left_small_x_1': (Sticker, False), 'right_small_x_1': (Sticker, False),
+            'left_small_x_2': (Sticker, False), 'right_small_x_2': (Sticker, False),
+            'left_small_x_3': (Sticker, False), 'right_small_x_3': (Sticker, False)
         }
         # Buttons
         # kind: (Class, text)
@@ -54,5 +54,9 @@ class GameUiConfiguration:
             'answer_show_4': (AnswerShowButton, ''),
             'answer_show_5': (AnswerShowButton, ''),
             'answer_show_6': (AnswerShowButton, ''),
-            'next_round': (Button, '')
+            'next_round_1': (Button, ''),
+            'next_round_2': (Button, ''),
+
+            'wrong_1': (WrongButton, ''),
+            'wrong_2': (WrongButton, '')
         }

@@ -66,8 +66,10 @@ class Label(pygame.sprite.Sprite):
             screen.blit(self.mask, self.rect.topleft)
         if self.visible:
             text = self.text
+            if self.kind == 'points_sum':
+                text = f'SUMA: {self.text}'
         else:
-            text = '@' * 50
+            text = '-' * 50
         if self.resize:
             draw_text(screen, text, self.font, color, self.rect.centerx, self.rect.centery, size=self.size[0])
         else:

@@ -14,7 +14,8 @@ BUTTONS_ACTION_TEXT = {
     'answer_show_4': 'Pokazuje odpowiedz nr 4',
     'answer_show_5': 'Pokazuje odpowiedz nr 5',
     'answer_show_6': 'Pokazuje odpowiedz nr 6',
-    'next_round': 'Przechodzę do następnej rundy...'
+    'next_round_1': 'Rundę wygrywa drużyna 1...',
+    'next_round_2': 'Rundę wygrywa drużyna 2...'
 }
 
 TIME = 60
@@ -65,5 +66,9 @@ GAME_PLAN = {
     'answer_show_4': [(41, 35), (2, 2)],
     'answer_show_5': [(41, 40), (2, 2)],
     'answer_show_6': [(41, 40), (2, 2)],
-    'next_round': [(55, 55), (4, 4)]
+    'next_round_1': [(48, 55), (8, 4)],
+    'next_round_2': [(58, 55), (8, 4)],
+
+    'wrong_1': [(0, 15), (8, 32)],
+    'wrong_2': [(115, 15), (8, 32)]
 }
