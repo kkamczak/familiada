@@ -1,6 +1,6 @@
 from windows.window import Window
 from ui.label import Label
-from ui.button import ExitButton, OptionsButton, StartButton
+from ui.button import Button
 from data.game_data import MAIN_MENU_PLAN
 from data.settings import FONT_BUTTON
 
@@ -21,9 +21,9 @@ class MainMenu(Window):
             self.labels.append(label)
 
         button_configurations = {
-            'start': (StartButton, "Rozpocznij grę"),
-            'options': (OptionsButton, "Opcje"),
-            'exit': (ExitButton, 'Wyjdź')
+            'start': (Button, "Rozpocznij grę"),
+            'options': (Button, "Opcje"),
+            'exit': (Button, 'Wyjdź')
         }
         for key, (button_class, text) in button_configurations.items():
             button = button_class(self.grid[key][0], key, text, FONT_BUTTON, self.grid[key][1])

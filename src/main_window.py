@@ -1,6 +1,7 @@
-from engine import Engine
+from managers.buttons_manager import ButtonsManager
+from managers.round_manager import RoundManager
 from data.game_data import MAIN_WINDOW_PLAN as PLAN
-from data.settings import SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE, FONT_ROUND, WHITE, SHOW_GRID
+from data.settings import SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE, FONT_ROUND, WHITE, SHOW_GRID, DB_PATH
 from tools.support import load_background, now, show_rounds
 from tools.positioner import Positioner
 from tools.grid import Grid
@@ -18,7 +19,8 @@ class MainWindow:
             'Main Menu': self.main_menu
         }
 
-        self.engine = Engine(self)
+        self.buttons_manager = ButtonsManager(self)
+        self.round_manager = RoundManager(DB_PATH)
 
         self.timer = None
 
@@ -48,19 +50,19 @@ class MainWindow:
             if name == new_window:
                 window.activate()
 
-
     def create_game_window(self):
         for name, window in self.windows.items():
             window.deactivate()
         self.game = Game(SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE)
         self.windows['Game'] = self.game
+        self.game.update_question(self.round_manager.round_set[self.round_manager.index])
 
     def elements_update(self):
         for window in list(self.windows.values()):
-            if window.active is True:
+            if window.active:
                 for button in window.buttons:
                     if button.check_click() and self.allow_click:
-                        self.engine.check_action(button)
+                        self.buttons_manager.check_action(button)
                         self.clicked()
 
     def draw(self, screen):

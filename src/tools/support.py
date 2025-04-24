@@ -361,8 +361,16 @@ def show_fps(screen, fps, font, color, position) -> None:
 def show_rounds(screen, round, font, color, position) -> None:
     draw_text(screen, f'Runda {str(int(round))}', font, color, position[0], position[1], size=15*TILE_SIZE)
 
+
 def add_dots(text: str, max: int) -> str:
     length = len(text)
     if length < max:
         text += '.' * (max - length)
     return text
+
+
+def add_dots_until_width(text: str, font: pygame.font.Font, target_width: int, max_dots: int = 10) -> str:
+    current_text = text
+    while font.size(current_text)[0] < target_width and len(current_text) < len(text) + max_dots:
+        current_text += '.'
+    return current_text

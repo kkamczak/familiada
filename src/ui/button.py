@@ -1,7 +1,7 @@
 import pygame
 from tools.support import draw_text, scale_image, import_image, puts, now
 from data.settings import WHITE, BUTTON_BASIC_COLOR, BUTTON_ACTIVE_COLOR
-
+from data.game_data import BUTTONS_ACTION_TEXT
 
 
 class Button(pygame.sprite.Sprite):
@@ -22,6 +22,10 @@ class Button(pygame.sprite.Sprite):
         # Text on button:
         self.text = text
         self.font = font
+        if self.kind in BUTTONS_ACTION_TEXT:
+            self.action_text = BUTTONS_ACTION_TEXT[self.kind]
+        else:
+            self.action_text = 'Ten przycisk nic nie robi...'
 
         # Conditions:
         self.clickable = True
@@ -30,6 +34,7 @@ class Button(pygame.sprite.Sprite):
         self.offset = offset
         self.mask = None
         self.mask_time = now()
+        self.exist = True
 
     def load_images(self, file: str = "button") -> dict:
 
@@ -82,56 +87,14 @@ class Button(pygame.sprite.Sprite):
         return action
 
     def action(self):
-        puts('Ten button nic nie robi')
-
-class ExitButton(Button):
-    def __init__(self, position: tuple, kind: str, text: str, font: pygame.font.SysFont, size: tuple):
-        super().__init__(position, kind, text, font, size)
-        self.kind = 'exit'
-
-    def action(self) -> str:
-        puts('Wychodze z gry')
-        return self.kind
-
-class PauseButton(Button):
-    def __init__(self, position: tuple, kind: str, text: str, font: pygame.font.SysFont, size: tuple):
-        super().__init__(position, kind, text, font, size)
-        self.kind = 'pause'
-
-    def action(self) -> str:
-        puts('Pauzuje gre')
-        return self.kind
-
-
-class StartButton(Button):
-    def __init__(self, position: tuple, kind: str, text: str, font: pygame.font.SysFont, size: tuple):
-        super().__init__(position, kind, text, font, size)
-        self.kind = 'start'
-
-    def action(self) -> str:
-        puts('Rozpoczynam grę')
-        return self.kind
-
-
-class OptionsButton(Button):
-    def __init__(self, position: tuple, kind: str, text: str, font: pygame.font.SysFont, size: tuple):
-        super().__init__(position, kind, text, font, size)
-        self.kind = 'options'
-
-    def action(self) -> str:
-        puts('Włączam opcje gry.')
+        puts(self.action_text)
         return self.kind
 
 
 class QuestionShowButton(Button):
     def __init__(self, position: tuple, kind: str, text: str, font: pygame.font.SysFont, size: tuple):
         super().__init__(position, kind, text, font, size)
-        self.kind = 'question_show'
         self.images = self.load_images(self.kind)
-
-    def action(self) -> str:
-        puts('Pokazuje pytanie...')
-        return self.kind
 
 class AnswerShowButton(Button):
     def __init__(self, position: tuple, kind: str, text: str, font: pygame.font.SysFont, size: tuple):

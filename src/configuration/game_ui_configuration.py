@@ -1,6 +1,6 @@
 from ui.label import Label, LabelBig
 from ui.sticker import Sticker
-from ui.button import PauseButton, QuestionShowButton, AnswerShowButton
+from ui.button import Button, QuestionShowButton, AnswerShowButton
 from tools.support import add_dots
 
 
@@ -31,7 +31,10 @@ class GameUiConfiguration:
             'points 5': (Label, "0", False),
             'points 6': (Label, "0", False),
 
-            'points_sum': (LabelBig, "SUMA 100 ", False),
+            'points_sum': (Label, "SUMA 100 ", False),
+
+            'points_team_1': (Label, '0', False),
+            'points_team_2': (Label, '0', False),
         }
         # Stickers
         # kind: (Class, is_visible)
@@ -43,12 +46,13 @@ class GameUiConfiguration:
         # Buttons
         # kind: (Class, text)
         self.buttons = {
-            'exit': (PauseButton, 'Menu'),
+            'pause': (Button, 'Menu'),
             'question_show': (QuestionShowButton, ''),
             'answer_show_1': (AnswerShowButton, ''),
             'answer_show_2': (AnswerShowButton, ''),
             'answer_show_3': (AnswerShowButton, ''),
             'answer_show_4': (AnswerShowButton, ''),
             'answer_show_5': (AnswerShowButton, ''),
-            'answer_show_6': (AnswerShowButton, '')
+            'answer_show_6': (AnswerShowButton, ''),
+            'next_round': (Button, '')
         }

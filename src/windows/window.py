@@ -25,8 +25,10 @@ class Window:
 
     def draw(self, screen: Surface):
         for button in self.buttons:
-            button.draw(screen)
+            if button.exist:
+                button.draw(screen)
         for label in self.labels:
-            label.draw(screen)
+            if label.exist:
+                label.draw(screen)
         for sticker in self.stickers:
             sticker.draw(screen)

@@ -1,31 +1,20 @@
-"""
-Żółci - 0, Niebiescy - 1, Zieloni - 2
-"""
-TEAMS = ['yellow', 'blue', 'green']
-INDEX = {
-    'yellow': 0,
-    'blue': 1,
-    'green': 2
-}
-TEAM_NAMES = ['Żółci', 'Niebiescy', 'Zieloni']
-TEAM_ICONS = {
-    'yellow_cap': 'content/ui/icons/yellow_cap.png',
-    'blue_cap': 'content/ui/icons/blue_cap.png',
-    'green_cap': 'content/ui/icons/green_cap.png'
-}
-
 DATA_PATH = 'content/database.xlsx'
 BL_PATH = 'content/blacklist.txt'
 IMAGES = 'content/images/'
 FORMAT = '.png'
-DATA_COLUMNS = {
-    'id': 'Numer pytania',
-    'category': 'Kategoria',
-    'question': 'Pytanie',
-    'answer': 'Odpowiedź',
-    'tip_1': 'Podpowiedź 1',
-    'tip_2': 'Podpowiedź 2',
-    'tip_3': 'Podpowiedź 3'
+BUTTONS_ACTION_TEXT = {
+    'start': 'Rozpoczynam gre...',
+    'options': 'Uruchamiam opcje...',
+    'exit': 'Wychodze z gry...',
+    'pause': 'Uruchamiam pauze...',
+    'question_show': 'Pokazuje pytanie...',
+    'answer_show_1': 'Pokazuje odpowiedz nr 1',
+    'answer_show_2': 'Pokazuje odpowiedz nr 2',
+    'answer_show_3': 'Pokazuje odpowiedz nr 3',
+    'answer_show_4': 'Pokazuje odpowiedz nr 4',
+    'answer_show_5': 'Pokazuje odpowiedz nr 5',
+    'answer_show_6': 'Pokazuje odpowiedz nr 6',
+    'next_round': 'Przechodzę do następnej rundy...'
 }
 
 TIME = 60
@@ -57,7 +46,9 @@ GAME_PLAN = {
     'answer 4': [(45, 35), (30, 2)], 'points 4': [(80, 35), (2, 2)],
     'answer 5': [(45, 40), (30, 2)], 'points 5': [(80, 40), (2, 2)],
     'answer 6': [(45, 45), (30, 2)], 'points 6': [(80, 45), (2, 2)],
-    'points_sum': [(80, 60), (6, 2)],
+    'points_sum': [(80, 50), (12, 2)],
+    'points_team_1': [(25, 55), (4, 2)],
+    'points_team_2': [(92, 55), (4, 2)],
 
 
     #Stickers:
@@ -66,12 +57,13 @@ GAME_PLAN = {
     'left_small_x_3': [(25, 36), (8, 8)], 'right_small_x_3': [(92, 36), (8, 8)],
 
     #Buttons:
-    'exit': [(1, 1), (9, 3)],
+    'pause': [(1, 1), (9, 3)],
     'question_show': [(41, 14), (2, 2)],
     'answer_show_1': [(41, 20), (2, 2)],
     'answer_show_2': [(41, 25), (2, 2)],
     'answer_show_3': [(41, 30), (2, 2)],
     'answer_show_4': [(41, 35), (2, 2)],
     'answer_show_5': [(41, 40), (2, 2)],
-    'answer_show_6': [(41, 40), (2, 2)]
+    'answer_show_6': [(41, 40), (2, 2)],
+    'next_round': [(55, 55), (4, 4)]
 }

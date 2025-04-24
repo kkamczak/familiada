@@ -50,7 +50,7 @@ ROLL_SPEED = 40
 ROLL_STEP = 0.1
 
 # Positioner and Grid
-SHOW_GRID = True
+SHOW_GRID = False
 SHOW_MASK = True
 
 # Rolling
@@ -67,3 +67,5 @@ FONT_SMALL = SysFont(FONT, 15)
 FONT_FPS = SysFont(FONT, 30)
 FONT_BUTTON = SysFont(FONT, 25)
 FONT_ROLL = SysFont(FONT, 20)
+
+DB_PATH = 'content/database.xlsx'
