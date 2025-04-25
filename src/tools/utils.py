@@ -73,7 +73,7 @@ def add_to_sum(pot_label: Label, label: Label, manager: RoundManager):
     Dodaje wartośc odpowiedzi do sumy ogólnej do zdobycia
     :param pot_label:
     :param label:
-    :param pot:
+    :param manager:
     :return:
     """
     value = 0

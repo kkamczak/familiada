@@ -29,40 +29,21 @@ class ButtonsManager:
     def check_action(self, button) -> None:
         action = button.action()
         game = self.main.windows['Game']
-        manager = self.main.round_manager
+        manager = game.round_manager
         if action == 'exit':
             self.exit_game()
         elif action == 'pause':
-            self.main.switch_window('Main Menu')
-            buttons = self.main.windows['Main Menu'].buttons
-            for button in buttons:
-                if button.kind == 'start':
-                    button.text = 'Wznów'
+            self.main.pause_game()
         elif action == 'start':
             self.main.create_game_window()
         elif action == 'question_show':
             toggle_label(game.labels, 'question', True)
-        elif 'answer_show' in action:
-            for i in range(1, 7):
-                if action == f'answer_show_{i}':
-                    toggle_label(game.labels, f'answer {i}', True)
-                    active_point_label(game.labels, f'points {i}', manager)
-        elif action == 'wrong_1':
-            manager.wrong_answer(1)
-            add_x(1, game.stickers, manager)
-        elif action == 'wrong_2':
-            manager.wrong_answer(2)
-            add_x(2, game.stickers, manager)
-        elif action == 'next_round_1':
-            manager.add_points(1)
-            clear_sum(game.labels, manager.pot)
-            add_to_team_points(game.labels, manager)
-        elif action == 'next_round_2':
-            manager.add_points(2)
-            clear_sum(game.labels, manager.pot)
-            add_to_team_points(game.labels, manager)
-
-
+        elif action.startswith('answer_show_'):
+            game.show_answer(action[-1])
+        elif action.startswith('wrong_'):
+            game.show_wrong_answer(int(action[-1]))
+        elif action.startswith('next_round_'):
+            game.go_next_round(int(action[-1]))
 
 
     @staticmethod

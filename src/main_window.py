@@ -19,9 +19,10 @@ class MainWindow:
             'Main Menu': self.main_menu,
             'Game': self.game
         }
+        self.create_game_window()
+        self.switch_window('Main Menu')
 
         self.buttons_manager = ButtonsManager(self)
-        self.round_manager = RoundManager(DB_PATH)
 
         self.timer = None
 
@@ -60,9 +61,15 @@ class MainWindow:
                     window.deactivate()
             self.game = Game(SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE)
             self.windows['Game'] = self.game
-            self.game.update_question(self.round_manager.round_set[self.round_manager.index])
         else:
             self.switch_window('Game')
+
+    def pause_game(self) -> None:
+        self.switch_window('Main Menu')
+        buttons = self.windows['Main Menu'].buttons
+        for button in buttons:
+            if button.kind == 'start':
+                button.text = 'Wznów'
 
     def elements_update(self):
         for window in list(self.windows.values()):
