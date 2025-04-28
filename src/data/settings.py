@@ -52,7 +52,7 @@ ROLL_STEP = 0.1
 
 # Positioner and Grid
 SHOW_GRID = False
-SHOW_MASK = True
+SHOW_MASK = False
 
 # Rolling
 SQUARE_AMOUNT = 10

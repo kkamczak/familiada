@@ -77,13 +77,14 @@ class Game(Window):
         Przechodzi do nastepnej rundy
         :return:
         """
+        self.round_manager.add_points(team)
+        clear_sum(self.labels, self.round_manager)
         if self.round_manager.index < self.round_manager.max_rounds:
-            self.round_manager.add_points(team)
-            clear_sum(self.labels, self.round_manager)
             clear_strikes(self.stickers)
             self.round_manager.next_round()
             self.update_question(self.round_manager.question)
             return False
+
         else:
             puts('Koniec wszystkich rund, przechodzimy do finału.')
             self.finished = True

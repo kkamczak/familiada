@@ -110,11 +110,11 @@ def clear_sum(labels: list, manager: RoundManager) -> None:
     :return:
     """
     for label in labels:
-        if label.kind == 'points_sum':
+        if 'points_sum' in label.kind:
             label.text = str(manager.pot)
-        if label.kind == 'points_team_1':
+        if 'points_team_1' in label.kind:
             label.change_text(str(manager.team_points[1]))
-        if label.kind == 'points_team_2':
+        if 'points_team_2' in label.kind:
             label.change_text(str(manager.team_points[2]))
 
 def add_strike(team: int, stickers: list, manager: RoundManager) -> None:
@@ -155,3 +155,46 @@ def clear_strikes(stickers: list) -> None:
             sticker.visible = False
         elif sticker.kind.startswith('right_small_x'):
             sticker.visible = False
+
+
+def load_choice_to_label(labels: list, kind: str, choice: str, manager: RoundManager) -> None:
+    number = int(kind[-1])
+    for label in labels:
+        #Answer:
+        if label.kind == kind:
+            if choice == '7':
+                text = '.'
+            else:
+                text = manager.question[number][f'answer {choice}']
+            new_text = add_dots_until_width(text, label.font, label.size[0], 200)
+            label.change_text(new_text)
+            label.visible = True
+        #Points:
+        if label.kind == f'f_points {number}':
+            if choice == '7':
+                label.change_text('0')
+            else:
+                label.change_text(str(manager.question[number][f'points {choice}']))
+            label.visible = True
+
+            for pot_label in labels:
+                if pot_label.kind == 'f_points_sum':
+                    check_sum(pot_label, labels, manager)
+
+
+def check_sum(pot_label: Label, labels: list, manager: RoundManager):
+    """
+    Sumuje widoczne odpowiedzi
+    :param pot_label:
+    :param labels:
+    :param manager:
+    :return:
+    """
+    new_sum = 0
+    for label in labels:
+        if label.kind.startswith('f_points ') and label.visible:
+            new_sum += int(label.text)
+            puts(f'Dodaje {label.text} z {label.kind} do sumy ogólnej')
+    manager.pot = new_sum
+    pot_label.change_text(str(new_sum))
+

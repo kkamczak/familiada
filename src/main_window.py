@@ -67,28 +67,21 @@ class MainWindow:
 
     def go_final(self):
         self.switch_window('Final')
-
+        self.windows['Final'].transfer_points()
     def elements_update(self):
+        def check(buttons):
+            for button in buttons:
+                if button.check_click() and self.allow_click:
+                    self.buttons_manager.check_action(button)
+                    self.clicked()
         for name, window in self.windows.items():
             if window is None:
                 continue
             elif window.active:
-                if name == 'Final':
-                    if window.answer_window.active:
-                        for button in window.answer_window.buttons:
-                            if button.check_click() and self.allow_click:
-                                self.buttons_manager.check_action(button)
-                                self.clicked()
-                    else:
-                        for button in window.buttons:
-                            if button.check_click() and self.allow_click:
-                                self.buttons_manager.check_action(button)
-                                self.clicked()
+                if name == 'Final' and window.answer_window.active:
+                    check(window.answer_window.buttons)
                 else:
-                    for button in window.buttons:
-                        if button.check_click() and self.allow_click:
-                            self.buttons_manager.check_action(button)
-                            self.clicked()
+                    check(window.buttons)
 
     def draw(self, screen):
         #screen.blit(self.background, (0, 0))

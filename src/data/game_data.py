@@ -100,11 +100,11 @@ FINAL_PLAN = {
 
     #Buttons:
     'f_pause': [(1, 1), (9, 3)],
-    'f_answer_show_1': [(ANS_SHOW_LINE, 20), SHOW_SIZE], 'f_blind_show_1': [(PT_LINE, 20), PT_SIZE],
-    'f_answer_show_2': [(ANS_SHOW_LINE, 25), SHOW_SIZE], 'f_blind_show_2': [(PT_LINE, 25), PT_SIZE],
-    'f_answer_show_3': [(ANS_SHOW_LINE, 30), SHOW_SIZE], 'f_blind_show_3': [(PT_LINE, 30), PT_SIZE],
-    'f_answer_show_4': [(ANS_SHOW_LINE, 35), SHOW_SIZE], 'f_blind_show_4': [(PT_LINE, 35), PT_SIZE],
-    'f_answer_show_5': [(ANS_SHOW_LINE, 40), SHOW_SIZE], 'f_blind_show_5': [(PT_LINE, 40), PT_SIZE],
+    'f_answer_show_1': [(ANS_SHOW_LINE, 20), SHOW_SIZE],
+    'f_answer_show_2': [(ANS_SHOW_LINE, 25), SHOW_SIZE],
+    'f_answer_show_3': [(ANS_SHOW_LINE, 30), SHOW_SIZE],
+    'f_answer_show_4': [(ANS_SHOW_LINE, 35), SHOW_SIZE],
+    'f_answer_show_5': [(ANS_SHOW_LINE, 40), SHOW_SIZE],
     'f_next_round_1': [(48, 55), (8, 4)],
     'f_next_round_2': [(58, 55), (8, 4)],
 }
@@ -120,5 +120,5 @@ ANSWER_PLAN = {
     'choice_4': [(ANS_SHOW_LINE-5, 32), (3, 3)],
     'choice_5': [(ANS_SHOW_LINE-5, 35), (3, 3)],
     'choice_6': [(ANS_SHOW_LINE-5, 38), (3, 3)],
-    'choice_bad': [(ANS_SHOW_LINE-5, 41), (3, 3)]
+    'choice_7': [(ANS_SHOW_LINE-5, 41), (3, 3)]
 }

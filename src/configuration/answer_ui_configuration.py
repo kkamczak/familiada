@@ -28,5 +28,5 @@ class AnswerUiConfiguration:
             'choice_4': (Button, '4'),
             'choice_5': (Button, '5'),
             'choice_6': (Button, '6'),
-            'choice_bad': (Button, 'X')
+            'choice_7': (Button, 'X')
         }

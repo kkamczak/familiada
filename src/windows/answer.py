@@ -7,6 +7,7 @@ class Answer(Window):
     def __init__(self, screen_width: int, screen_height: int, tile_size: int):
         self.configuration = None
         super().__init__(screen_width, screen_height, tile_size)
+        self.number = 0
 
     def create_window(self):
         self.configuration = AnswerUiConfiguration()
@@ -23,3 +24,12 @@ class Answer(Window):
         for key, (button_class, text) in self.configuration.buttons.items():
             button = button_class(self.grid[key][0], key, text, FONT_BUTTON, self.grid[key][1])
             self.buttons.append(button)
+
+    def hide(self) -> None:
+        self.active = False
+
+    def show(self) -> None:
+        self.active = True
+
+    def change_number(self, number: str) -> None:
+        self.number = number

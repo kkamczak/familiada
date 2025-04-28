@@ -43,10 +43,11 @@ class RoundManager:
 
     def next_round(self) -> None:
         self.index += 1
-        self.question = self.round_set[self.index]
-        self.first_team = 0
-        self.xs[1] = 0
-        self.xs[2] = 0
+        if self.status == 'round':
+            self.question = self.round_set[self.index]
+            self.first_team = 0
+            self.xs[1] = 0
+            self.xs[2] = 0
 
     def change_to_final(self) -> None:
         self.status = 'final'

@@ -43,11 +43,11 @@ class FinalUiConfiguration:
         # kind: (Class, text)
         self.buttons = {
             'f_pause': (Button, 'Menu'),
-            'f_answer_show_1': (AnswerShowButton, ''), 'f_blind_show_1': (BlindButton, ''),
-            'f_answer_show_2': (AnswerShowButton, ''), 'f_blind_show_2': (BlindButton, ''),
-            'f_answer_show_3': (AnswerShowButton, ''), 'f_blind_show_3': (BlindButton, ''),
-            'f_answer_show_4': (AnswerShowButton, ''), 'f_blind_show_4': (BlindButton, ''),
-            'f_answer_show_5': (AnswerShowButton, ''), 'f_blind_show_5': (BlindButton, ''),
+            'f_answer_show_1': (AnswerShowButton, ''),
+            'f_answer_show_2': (AnswerShowButton, ''),
+            'f_answer_show_3': (AnswerShowButton, ''),
+            'f_answer_show_4': (AnswerShowButton, ''),
+            'f_answer_show_5': (AnswerShowButton, ''),
             'f_next_round_1': (Button, ''),
             'f_next_round_2': (Button, ''),
         }

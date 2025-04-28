@@ -1,6 +1,7 @@
 import pygame
 import sys
 from tools.game_utils import toggle_label
+from tools.support import puts
 
 
 class ButtonsManager:
@@ -37,7 +38,13 @@ class ButtonsManager:
         #Final:
         elif action.startswith('f_answer_show_'):
             final.show_answer(action[-1])
-
+        elif action == 'back':
+            final.answer_window.hide()
+        elif action.startswith('choice_'):
+            final.pick_answer(action[-1])
+        elif action.startswith('f_next_round_'):
+            if final.go_next_round(int(action[-1])):
+                puts('Koniec gry!!!')
 
     @staticmethod
     def exit_game() -> None:
