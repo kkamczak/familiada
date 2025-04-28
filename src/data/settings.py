@@ -1,5 +1,6 @@
 import pygame
 from pygame.font import SysFont
+from ui.font import MyFont
 pygame.init()
 
 # Colors:
@@ -57,15 +58,15 @@ SHOW_MASK = True
 SQUARE_AMOUNT = 10
 
 # --- Fonts ---------------------------------------------------------------------------------
-FONT = 'calibri'
-FONT_BIG = SysFont(FONT, 72)
+FONT = 'consolas'
+FONT_BIG = MyFont(FONT, 72)
 FONT_TIMER = SysFont(FONT, 75, bold=True)
 FONT_ROUND = SysFont(FONT, 50, bold=True)
-FONT_End = SysFont('verdana', 50, bold=True)
-FONT_NORMAL = SysFont('content/fonts/ARCADEPI.ttf', 30)
-FONT_SMALL = SysFont(FONT, 15)
-FONT_FPS = SysFont(FONT, 30)
-FONT_BUTTON = SysFont(FONT, 25)
-FONT_ROLL = SysFont(FONT, 20)
+FONT_NORMAL = MyFont('content/fonts/ARCADEPI.ttf', 30)
+FONT_SMALL = MyFont(FONT, 15)
+FONT_FPS = MyFont(FONT, 30)
+FONT_BUTTON = MyFont(FONT, 25)
+FONT_LABEL = MyFont(FONT, 35)
+#FONT_BUTTON = SysFont('content/fonts/VT323-Regular.ttf', 25)
 
 DB_PATH = 'content/database.xlsx'

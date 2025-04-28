@@ -24,11 +24,11 @@ class Window:
         pass
 
     def draw(self, screen: Surface):
-        for button in self.buttons:
-            if button.exist:
-                button.draw(screen)
         for label in self.labels:
             if label.exist:
                 label.draw(screen)
         for sticker in self.stickers:
             sticker.draw(screen)
+        for button in self.buttons:
+            if button.exist:
+                button.draw(screen)

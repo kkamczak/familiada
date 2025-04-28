@@ -1,6 +1,6 @@
 import pygame
 from tools.support import draw_text, scale_image, import_image, now, puts
-from data.settings import WHITE, BUTTON_BASIC_COLOR, BLACK, RED, SHOW_MASK, FONT_NORMAL
+from data.settings import WHITE, BUTTON_BASIC_COLOR, BLACK, RED, SHOW_MASK, FONT_NORMAL, WHITE, YELLOW, GOLD
 
 
 class Label(pygame.sprite.Sprite):
@@ -11,7 +11,7 @@ class Label(pygame.sprite.Sprite):
         self.kind = kind
 
         # Image:
-        self.color_basic = BUTTON_BASIC_COLOR
+        self.color_basic = GOLD
         self.position = position
         self.align = None
         self.image = None
@@ -58,7 +58,7 @@ class Label(pygame.sprite.Sprite):
         self.mask_time = now()
 
     def draw(self, screen):
-        color = BLACK
+        color = self.color_basic
         if self.image is not None:
             screen.blit(self.image, self.rect.topleft)
             color = WHITE
@@ -66,10 +66,10 @@ class Label(pygame.sprite.Sprite):
             screen.blit(self.mask, self.rect.topleft)
         if self.visible:
             text = self.text
-            if self.kind == 'points_sum':
+            if 'points_sum' in self.kind:
                 text = f'SUMA: {self.text}'
         else:
-            text = '-' * 50
+            text = '-' * 80
         if self.resize:
             draw_text(screen, text, self.font, color, self.rect.centerx, self.rect.centery, size=self.size[0])
         else:

@@ -106,7 +106,7 @@ class AnswerShowButton(Button):
         puts(f'Pokazuje odpowiedz nr {self.kind[-1]}...')
         return self.kind
 
-class WrongButton(Button):
+class BlindButton(Button):
     def __init__(self, position: tuple, kind: str, text: str, font: pygame.font.SysFont, size: tuple):
         super().__init__(position, kind, text, font, size)
         self.images = self.create_blind_images()
@@ -125,8 +125,3 @@ class WrongButton(Button):
             'active': active_image
         }
         return images
-
-    def action(self) -> str:
-        puts(f'Błedna odpowiedz...')
-        return self.kind
-

@@ -32,7 +32,7 @@ class Engine:
         elif action == 'pause':
             self.main.switch_window('Main Menu')
         elif action == 'start':
-            self.main.create_game_window()
+            self.main.open_game_window()
 
     @staticmethod
     def exit_game() -> None:

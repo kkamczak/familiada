@@ -274,7 +274,7 @@ def draw_text(surface, text, font, text_col, x_pos, y_pos, left=False, frame=Fal
     if size is not None:
         text_width, text_height = img.get_size()
         if text_width > size:
-            new_font_size = int(25 * size / text_width)
+            new_font_size = int(font.get_pt_size() * size / text_width)
             font = pygame.font.SysFont(FONT, new_font_size)
             img = font.render(text, True, text_col)
     if not left:

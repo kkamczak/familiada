@@ -1,27 +1,14 @@
 import pygame
 import sys
-from tools.utils import toggle_label, active_point_label, add_x, clear_sum, add_to_team_points
+from tools.game_utils import toggle_label
 
 
 class ButtonsManager:
     def __init__(self, main_window):
         """
-        Kontroluje działanie aplikacji.
-        Statusy:
-            main menu - menu główne
-            game - główna rozgrywka
-            options - opcje gry
-            final - final rozgrywki
+        Kontroluje akcje wszystkich przecisków
         """
         self.main = main_window
-        self.status = 'main menu'
-        self.storage = None
-        self.round = 1
-
-        self.losers = []
-
-    def change_status(self, new_status: str) -> None:
-        self.status = new_status
 
     def create_timer(self) -> None:
         self.main.create_timer()
@@ -29,21 +16,27 @@ class ButtonsManager:
     def check_action(self, button) -> None:
         action = button.action()
         game = self.main.windows['Game']
-        manager = game.round_manager
+        final = self.main.windows['Final']
         if action == 'exit':
             self.exit_game()
-        elif action == 'pause':
+        elif 'pause' in action:
             self.main.pause_game()
         elif action == 'start':
-            self.main.create_game_window()
+            self.main.open_game_window()
         elif action == 'question_show':
             toggle_label(game.labels, 'question', True)
         elif action.startswith('answer_show_'):
             game.show_answer(action[-1])
+        elif action.startswith('blind_show_'):
+            game.blind_answer(action[-1])
         elif action.startswith('wrong_'):
             game.show_wrong_answer(int(action[-1]))
         elif action.startswith('next_round_'):
-            game.go_next_round(int(action[-1]))
+            if game.go_next_round(int(action[-1])):
+                self.main.go_final()
+        #Final:
+        elif action.startswith('f_answer_show_'):
+            final.show_answer(action[-1])
 
 
     @staticmethod

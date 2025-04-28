@@ -1,4 +1,4 @@
-from tools.support import add_dots, add_dots_until_width, puts
+from tools.support import add_dots_until_width, puts
 from managers.round_manager import RoundManager
 from ui.label import Label
 
@@ -40,7 +40,7 @@ def update_label(label: Label, question: dict, dots: bool) -> bool:
         text = str(question[label.kind])
         if dots:
             # text = add_dots(text,50)
-            text = add_dots_until_width(text, label.font, 350, 50)
+            text = add_dots_until_width(text, label.font, label.size[0], 200)
         label.change_text(text)
         label.exist = True
         label.visible = False
@@ -49,10 +49,13 @@ def update_label(label: Label, question: dict, dots: bool) -> bool:
         label.exist = False
         return False
 
+def hide_label(label: Label) -> None:
+    label.exist = True
+    label.visible = False
 
 def active_point_label(labels: list, kind: str, manager: RoundManager) -> None:
     """
-    Zmiana statusu wyświetlania treści labela.
+    Zmiana statusu wyświetlania treści labela z punktami.
     :param labels: Lista obiektów Label
     :param kind: unikalna nazwa Labela
     :param manager:
@@ -64,8 +67,22 @@ def active_point_label(labels: list, kind: str, manager: RoundManager) -> None:
             pot_label = label
     for label in labels:
         if label.kind == kind:
-            label.visible = True
-            add_to_sum(pot_label, label, manager)
+            if label.visible is False:
+                label.visible = True
+                add_to_sum(pot_label, label, manager)
+
+
+def blind_point_label(labels: list, kind: str) -> None:
+    """
+    Wyświetla label punktowy wyzerowany.
+    :param labels: Lista obiektów Label
+    :param kind: unikalna nazwa Labela
+    :return: None
+    """
+    for label in labels:
+        if label.kind == kind:
+            if label.visible is False:
+                label.visible = True
 
 
 def add_to_sum(pot_label: Label, label: Label, manager: RoundManager):
@@ -84,32 +101,34 @@ def add_to_sum(pot_label: Label, label: Label, manager: RoundManager):
 
     manager.pot += value
     pot_label.text = str(manager.pot)
-    puts(f'{manager.pot}  /  {pot_label.text}')
 
-def clear_sum(labels: list, pot: int):
-    for label in labels:
-        if label.kind == 'points_sum':
-            label.text = str(pot)
-
-def add_to_team_points(labels: list, manager: RoundManager):
+def clear_sum(labels: list, manager: RoundManager) -> None:
     """
-    Dodaje wartośc odpowiedzi do sumy ogólnej do zdobycia
+    Wyczyść pole SUMA oraz zaktualizuj pola punktów drużyn
     :param labels:
     :param manager:
     :return:
     """
     for label in labels:
+        if label.kind == 'points_sum':
+            label.text = str(manager.pot)
         if label.kind == 'points_team_1':
             label.change_text(str(manager.team_points[1]))
         if label.kind == 'points_team_2':
             label.change_text(str(manager.team_points[2]))
 
-def add_x(team: int, stickers: list, manager: RoundManager) -> None:
+def add_strike(team: int, stickers: list, manager: RoundManager) -> None:
+    """
+    Dodaje strike dla wybranej drużyny
+    :param team:
+    :param stickers:
+    :param manager:
+    :return:
+    """
     site = 'left'
     if team == 2:
         site = 'right'
     if team == manager.first_team:
-        puts(manager.xs[team])
         if manager.xs[team] <= 3:
             for sticker in stickers:
                 if sticker.kind == f'{site}_small_x_{manager.xs[team]}':
@@ -123,3 +142,16 @@ def add_x(team: int, stickers: list, manager: RoundManager) -> None:
                     sticker.visible = True
         else:
             puts(f'Drużyna {team} przegrywa...')
+
+
+def clear_strikes(stickers: list) -> None:
+    """
+    Ukrywa na początku rundy wszytkie striki
+    :param stickers:
+    :return:
+    """
+    for sticker in stickers:
+        if sticker.kind.startswith('left_small_x'):
+            sticker.visible = False
+        elif sticker.kind.startswith('right_small_x'):
+            sticker.visible = False

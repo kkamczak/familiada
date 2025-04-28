@@ -1,6 +1,6 @@
 import pygame
 import sys
-from data.settings import SCREEN_WIDTH, SCREEN_HEIGHT, FPS, LIGHT_GREY, WHITE, FPS_SHOW, FONT_FPS
+from data.settings import SCREEN_WIDTH, SCREEN_HEIGHT, FPS, LIGHT_GREY, WHITE, FPS_SHOW, FONT_FPS, BLACK
 from tools.support import show_fps
 from main_window import MainWindow
 
@@ -41,7 +41,7 @@ def start_game():
             if event.type == pygame.QUIT:
                 program.exit_program()
 
-        screen.fill(LIGHT_GREY)
+        screen.fill(BLACK)
         program.loop()
         pygame.display.update()
 

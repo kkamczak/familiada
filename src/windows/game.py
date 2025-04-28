@@ -1,8 +1,9 @@
-from tools.utils import toggle_button, update_label, toggle_label, active_point_label, add_x, clear_sum, add_to_team_points
+from tools.game_utils import (toggle_button, update_label, toggle_label, active_point_label, add_strike, clear_sum,
+                              clear_strikes, blind_point_label)
 from windows.window import Window
 from configuration.game_ui_configuration import GameUiConfiguration
 from data.game_data import GAME_PLAN
-from data.settings import FONT_BUTTON, DB_PATH
+from data.settings import FONT_BUTTON, FONT_LABEL, DB_PATH
 from managers.round_manager import RoundManager
 from tools.support import puts
 
@@ -12,14 +13,15 @@ class Game(Window):
         self.configuration = None
         super().__init__(screen_width, screen_height, tile_size)
         self.round_manager = RoundManager(DB_PATH)
-        self.update_question(self.round_manager.round_set[self.round_manager.index])
+        self.update_question(self.round_manager.question)
+        self.finished = False
 
     def create_window(self):
         self.configuration = GameUiConfiguration()
         self.grid = self.positioner.transform(GAME_PLAN)
 
         for key, (label_class, text, background) in self.configuration.labels.items():
-            label = label_class(key, self.grid[key][0], text, FONT_BUTTON, background, self.grid[key][1])
+            label = label_class(key, self.grid[key][0], text, FONT_LABEL, background, self.grid[key][1])
             self.labels.append(label)
 
         for key, (sticker_class, visible) in self.configuration.stickers.items():
@@ -52,6 +54,15 @@ class Game(Window):
         toggle_label(self.labels, f'answer {number}', True)
         active_point_label(self.labels, f'points {number}', self.round_manager)
 
+    def blind_answer(self, number: str) -> None:
+        """
+        Wyświetla wybraną odpowiedz ale nie przydziela jej punktów.
+        :param number:
+        :return:
+        """
+        toggle_label(self.labels, f'answer {number}', True)
+        blind_point_label(self.labels, f'points {number}')
+
     def show_wrong_answer(self, team: int) -> None:
         """
         Wyświetla że dana drużyna źle odpowiedziała
@@ -59,14 +70,23 @@ class Game(Window):
         :return:
         """
         self.round_manager.wrong_answer(team)
-        add_x(team, self.stickers, self.round_manager)
+        add_strike(team, self.stickers, self.round_manager)
 
-    def go_next_round(self, team: int) -> None:
+    def go_next_round(self, team: int) -> bool:
         """
         Przechodzi do nastepnej rundy
         :return:
         """
-        self.round_manager.add_points(team)
-        clear_sum(self.labels, self.round_manager.pot)
-        add_to_team_points(self.labels, self.round_manager)
+        if self.round_manager.index < self.round_manager.max_rounds:
+            self.round_manager.add_points(team)
+            clear_sum(self.labels, self.round_manager)
+            clear_strikes(self.stickers)
+            self.round_manager.next_round()
+            self.update_question(self.round_manager.question)
+            return False
+        else:
+            puts('Koniec wszystkich rund, przechodzimy do finału.')
+            self.finished = True
+            self.round_manager.change_to_final()
+            return True
 

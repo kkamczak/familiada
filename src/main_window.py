@@ -1,5 +1,4 @@
 from managers.buttons_manager import ButtonsManager
-from managers.round_manager import RoundManager
 from data.game_data import MAIN_WINDOW_PLAN as PLAN
 from data.settings import SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE, FONT_ROUND, WHITE, SHOW_GRID, DB_PATH
 from tools.support import load_background, now, show_rounds
@@ -7,21 +6,22 @@ from tools.positioner import Positioner
 from tools.grid import Grid
 from windows.main_menu import MainMenu
 from windows.game import Game
+from windows.final import Final
 
 
 class MainWindow:
     def __init__(self):
         self.background = load_background((SCREEN_WIDTH, SCREEN_HEIGHT), 'content/ui/wallpaper.png')
         self.main_menu = MainMenu(SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE)
-        self.game = None
+        self.game = Game(SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE)
+        self.final = Final(SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE, self.game.round_manager)
 
         self.windows = {
             'Main Menu': self.main_menu,
-            'Game': self.game
+            'Game': self.game,
+            'Final': self.final
         }
-        self.create_game_window()
         self.switch_window('Main Menu')
-
         self.buttons_manager = ButtonsManager(self)
 
         self.timer = None
@@ -52,17 +52,11 @@ class MainWindow:
             if name == new_window:
                 window.activate()
 
-    def create_game_window(self):
-        if self.game is None:
-            for name, window in self.windows.items():
-                if window is None:
-                    continue
-                else:
-                    window.deactivate()
-            self.game = Game(SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE)
-            self.windows['Game'] = self.game
-        else:
+    def open_game_window(self):
+        if not self.windows['Game'].finished:
             self.switch_window('Game')
+        else:
+            self.switch_window('Final')
 
     def pause_game(self) -> None:
         self.switch_window('Main Menu')
@@ -71,15 +65,30 @@ class MainWindow:
             if button.kind == 'start':
                 button.text = 'Wznów'
 
+    def go_final(self):
+        self.switch_window('Final')
+
     def elements_update(self):
-        for window in list(self.windows.values()):
+        for name, window in self.windows.items():
             if window is None:
                 continue
             elif window.active:
-                for button in window.buttons:
-                    if button.check_click() and self.allow_click:
-                        self.buttons_manager.check_action(button)
-                        self.clicked()
+                if name == 'Final':
+                    if window.answer_window.active:
+                        for button in window.answer_window.buttons:
+                            if button.check_click() and self.allow_click:
+                                self.buttons_manager.check_action(button)
+                                self.clicked()
+                    else:
+                        for button in window.buttons:
+                            if button.check_click() and self.allow_click:
+                                self.buttons_manager.check_action(button)
+                                self.clicked()
+                else:
+                    for button in window.buttons:
+                        if button.check_click() and self.allow_click:
+                            self.buttons_manager.check_action(button)
+                            self.clicked()
 
     def draw(self, screen):
         #screen.blit(self.background, (0, 0))
@@ -94,9 +103,13 @@ class MainWindow:
 
         if SHOW_GRID:
             self.grid_editor.update(screen)
-        show_rounds(screen, 666, FONT_ROUND, WHITE, Positioner.position(PLAN['round'][0], TILE_SIZE))
+        if self.windows['Game'].active or self.windows['Final']:
+            show_rounds(screen, self.windows['Game'].round_manager.index, FONT_ROUND,
+                        WHITE, Positioner.position(PLAN['round'][0], TILE_SIZE))
+
 
     def run(self, screen):
         self.click_timer()
         self.elements_update()
         self.draw(screen)
+

@@ -1,6 +1,6 @@
 from ui.label import Label, LabelBig
 from ui.sticker import Sticker
-from ui.button import Button, QuestionShowButton, AnswerShowButton, WrongButton
+from ui.button import Button, QuestionShowButton, AnswerShowButton, BlindButton
 from tools.support import add_dots
 
 
@@ -48,15 +48,15 @@ class GameUiConfiguration:
         self.buttons = {
             'pause': (Button, 'Menu'),
             'question_show': (QuestionShowButton, ''),
-            'answer_show_1': (AnswerShowButton, ''),
-            'answer_show_2': (AnswerShowButton, ''),
-            'answer_show_3': (AnswerShowButton, ''),
-            'answer_show_4': (AnswerShowButton, ''),
-            'answer_show_5': (AnswerShowButton, ''),
-            'answer_show_6': (AnswerShowButton, ''),
+            'answer_show_1': (AnswerShowButton, ''), 'blind_show_1': (BlindButton, ''),
+            'answer_show_2': (AnswerShowButton, ''), 'blind_show_2': (BlindButton, ''),
+            'answer_show_3': (AnswerShowButton, ''), 'blind_show_3': (BlindButton, ''),
+            'answer_show_4': (AnswerShowButton, ''), 'blind_show_4': (BlindButton, ''),
+            'answer_show_5': (AnswerShowButton, ''), 'blind_show_5': (BlindButton, ''),
+            'answer_show_6': (AnswerShowButton, ''), 'blind_show_6': (BlindButton, ''),
             'next_round_1': (Button, ''),
             'next_round_2': (Button, ''),
 
-            'wrong_1': (WrongButton, ''),
-            'wrong_2': (WrongButton, '')
+            'wrong_1': (BlindButton, ''),
+            'wrong_2': (BlindButton, '')
         }

@@ -1,4 +1,5 @@
 import pandas as pd
+from tools.support import puts
 
 
 class RoundManager:
@@ -9,7 +10,8 @@ class RoundManager:
         self.max_answers = 6
 
         self.round_set, self.final_set = self.load_data(path)
-        self.question = self.round_set[1]
+        self.question = self.round_set[self.index]
+
         self.define_max()
 
         self.pot = 0
@@ -38,6 +40,21 @@ class RoundManager:
     def add_points(self, team: int) -> None:
         self.team_points[team] += self.pot
         self.pot = 0
+
+    def next_round(self) -> None:
+        self.index += 1
+        self.question = self.round_set[self.index]
+        self.first_team = 0
+        self.xs[1] = 0
+        self.xs[2] = 0
+
+    def change_to_final(self) -> None:
+        self.status = 'final'
+        self.index = 1
+        self.max_rounds = 2
+        self.max_answers = 5
+        self.question = self.final_set
+        puts(self.question)
 
     @staticmethod
     def load_data(path: str) -> tuple:
